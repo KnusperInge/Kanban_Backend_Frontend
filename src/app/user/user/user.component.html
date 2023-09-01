@@ -29,6 +29,7 @@
 
     <button *ngIf="UserForm.valid" mat-raised-button color="primary" (click)="saveUserchanges()">Save
       changes</button>
+    <span *ngIf="message" class="errMessage">changed successfully</span>
   </form>
 
   <form [formGroup]="PasswordForm" class="userPassword">

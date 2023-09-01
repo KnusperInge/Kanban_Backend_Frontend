@@ -1,0 +1,49 @@
+<main>
+  <h2> Sign Up</h2>
+  <form [formGroup]="newUser">
+    <mat-form-field class="example-full-width">
+      <mat-label>username</mat-label>
+      <input id="title" matInput formControlName="username">
+    </mat-form-field>
+
+    <div class="name_box">
+      <mat-form-field class="example-full-width">
+        <mat-label>firstname</mat-label>
+        <input id="title" matInput formControlName="first_name">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>lastname</mat-label>
+        <input id="title" matInput formControlName="last_name">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>email</mat-label>
+      <input type="email" id="title" matInput [formControl]="email">
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>password</mat-label>
+      <input id="title" matInput formControlName="password">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>password</mat-label>
+      <input id="title" matInput formControlName="password2">
+    </mat-form-field>
+
+
+    <div class="btn_box">
+
+      <button *ngIf="newUser.valid && email.valid" mat-raised-button color="primary" (click)="createUser()">Sign
+        Up</button>
+      <button mat-raised-button color="warn">abort</button>
+    </div>
+
+  </form>
+  <div *ngIf="message" class="message">
+    <div class="message_content">
+      <h1>successfully registered</h1>
+    </div>
+  </div>
+</main>

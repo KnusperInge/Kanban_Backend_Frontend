@@ -1,0 +1,52 @@
+<main>
+  <header>
+    <h1>Userpanel</h1>
+  </header>
+
+  <form [formGroup]="UserForm" class="userForm">
+    <h3>Userdata</h3>
+
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+
+    <div>
+      <mat-form-field>
+        <mat-label>first Name</mat-label>
+        <input matInput formControlName="first_name">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>last Name</mat-label>
+        <input matInput formControlName="last_name">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-label>email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <button *ngIf="UserForm.valid" mat-raised-button color="primary" (click)="saveUserchanges()">Save
+      changes</button>
+  </form>
+
+  <form [formGroup]="PasswordForm" class="userPassword">
+    <h3>Change Password</h3>
+    <mat-form-field>
+      <mat-label>new Password</mat-label>
+      <input id="new_Password" matInput formControlName="password" minlength="9" type="password">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Confirm new Password</mat-label>
+      <input id="new_Password2" matInput formControlName="password2" minlength="9" type="password">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>old Password</mat-label>
+      <input id="old_Password" matInput formControlName="old_password" type="password">
+    </mat-form-field>
+    <button *ngIf="PasswordForm.valid" mat-raised-button color="primary" (click)="savePassword()">Change
+      Password</button>
+    <span *ngIf="errMessage" class="errMessage">new passwords do not match</span>
+  </form>
+</main>

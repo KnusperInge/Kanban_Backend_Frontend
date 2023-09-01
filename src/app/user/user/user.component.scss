@@ -1,0 +1,16 @@
+main {
+  height: calc(100% - 40px);
+  max-height: 100%;
+  width: calc(100% - 40px);
+  max-width: 100%;
+  padding: 20px;
+  // background-color: #34353a;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,69 @@
+<main>
+
+
+  <div class=" content">
+    <div class="example-container">
+      <h2>To do</h2>
+
+      <div cdkDropList #todoList="cdkDropList" id="todo" [cdkDropListData]="is_todo"
+        [cdkDropListConnectedTo]="[inProgressList,awaitFeedbackList,doneList]" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box todo" *ngFor="let item of is_todo" cdkDrag>
+          <div (dblclick)="openDialog(true,item)" class="task">
+            <h3>{{item.title}}</h3>
+            <span class="desc">{{item.description}}</span>
+            <span>erstellt am: {{item.created_at|date}} von {{item.author.username}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-container">
+      <h2>in Progress</h2>
+
+      <div cdkDropList #inProgressList="cdkDropList" id="in_progress" [cdkDropListData]="is_inprogress"
+        [cdkDropListConnectedTo]="[todoList, awaitFeedbackList,doneList]" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of is_inprogress" cdkDrag>
+          <div (dblclick)="openDialog(true,item)" class="task">
+            <h3>{{item.title}}</h3>
+            <span class="desc">{{item.description}}</span>
+            <span>erstellt am: {{item.created_at|date}} von {{item.author.username}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="example-container">
+      <h2>Await Feedback</h2>
+
+      <div cdkDropList #awaitFeedbackList="cdkDropList" id="await_feedback" [cdkDropListData]="is_awaitfeedback"
+        [cdkDropListConnectedTo]="[todoList,inProgressList,doneList]" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of is_awaitfeedback" cdkDrag>
+          <div (dblclick)="openDialog(true,item)" class="task">
+            <h3>{{item.title}}</h3>
+            <span class="desc">{{item.description}}</span>
+            <span>erstellt am: {{item.created_at|date}} von {{item.author.username}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="example-container">
+      <h2>Done</h2>
+
+      <div cdkDropList #doneList="cdkDropList" id="done" [cdkDropListData]="is_done"
+        [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of is_done" cdkDrag>
+          <div (dblclick)="openDialog(true,item)" class="task">
+            <h3>{{item.title}}</h3>
+            <span class="desc">{{item.description}}</span>
+            <span>erstellt am: {{item.created_at|date}} von {{item.author.username}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)="openDialog(false)" class="new_note" mat-fab matTooltip="Primary" color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
+</main>

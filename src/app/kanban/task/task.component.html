@@ -1,0 +1,115 @@
+<main>
+  <div class="head">
+    <h2> create/ change Task</h2>
+    <div class=" right_content">
+      <span *ngIf="change && buildmode" class="info">editemode</span>
+
+      <mat-icon *ngIf="change" class="icon blue" (click)="changebuildmode()"> edit</mat-icon>
+      <mat-icon *ngIf="change && buildmode" class="icon" (click)="deleteTask()"> delete</mat-icon>
+    </div>
+  </div>
+
+  <form class="form" [formGroup]="TaskForm">
+    <div class="editmode" *ngIf="!change || buildmode">
+
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Title</mat-label>
+        <input id="title" matInput formControlName="title">
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Employees</mat-label>
+        <mat-select formControlName="users" multiple>
+          <mat-option *ngFor="let user of users" [value]="user.id">{{user.username}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="subtask">
+        <mat-form-field class="example-full-width">
+          <mat-label>add Subtask...</mat-label>
+          <input id="subtask" matInput name="subtask" #subtask>
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="addBtn" (click)="addSubtask(subtask.value)"
+          (click)="subtask.value=''">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+    </div>
+    <div class="showcase" *ngIf="change">
+      <div *ngIf="!buildmode">
+        <div class=" row">
+          <h4>Title:</h4>
+          <span class="row2">{{Task.title}}</span>
+        </div>
+        <div class="block">
+          <h4>Description:</h4>
+          <span class="row2">{{Task.description}}</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Subtasks:</h4>
+        <div class="progressbar_content">
+          <mat-progress-bar mode="determinate" value="{{subtaskprogress}}"></mat-progress-bar>
+          <div class="progress">
+            <span>0%</span>
+            <span>100%</span>
+          </div>
+        </div>
+
+
+        <div [class.subtask_scroll]="buildmode">
+          <div *ngFor="let st of subtasks |keyvalue " class="show_subtask">
+
+            <span>
+              - {{st.value['message']}}
+            </span>
+
+            <div class="show_subtask_btn">
+              <div *ngIf="!buildmode">
+                <span
+                  [ngClass]="{'in_progress': 'in_progress' == st.value['status'],'done': 'done' == st.value['status']  }">current
+                  Status:
+                  {{st.value['status']}}</span>
+              </div>
+              <div *ngIf="buildmode">
+                <mat-form-field>
+                  <mat-label>Status</mat-label>
+                  <mat-select value="{{st.value['status']}}" (valueChange)="changeSubtask(st.key,status.value)" #status>
+                    <mat-option value=""></mat-option>
+                    <mat-option value="in_progress"> in Progress</mat-option>
+                    <mat-option value="done">done</mat-option>
+
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>editors:</h4>
+        <div *ngFor="let user of Task.users">
+          <span>{{user.username}} ({{user.email}})</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="btn_box">
+      <button *ngIf="change && buildmode" mat-raised-button color="primary" (click)="updateTask()">Save changes</button>
+      <button *ngIf="!change && TaskForm.valid" mat-raised-button color="primary" (click)="createTask()">Save</button>
+      <button mat-raised-button color="warn" (click)="closeDialog()">abort</button>
+    </div>
+  </form>
+</main>

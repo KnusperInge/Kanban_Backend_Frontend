@@ -29,6 +29,7 @@ export class AuthService {
     const body = { username: username, password: password };
     this.http.post<any>(environments.loginUrl, body).subscribe(async (res) => {
       localStorage.setItem('usertoken', res.token);
+
       this.currentUser.next(await res);
     });
     return this.currentUser;

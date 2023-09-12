@@ -8,7 +8,12 @@ main {
   align-items: center;
   justify-content: center;
 }
-
+.notice {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 50px;
+}
 form {
   border: 1px solid #ffc86b;
   border-radius: 5px;

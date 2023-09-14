@@ -7,6 +7,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { TaskComponent } from '../task/task.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/services/auth.service';
 
 export interface DialogData {
   change: false;
@@ -24,16 +25,22 @@ export class KanbanComponent implements OnInit {
   is_inprogress = [];
   is_awaitfeedback = [];
   is_done: any = [];
+  userisAdmin: boolean = false;
 
-  constructor(private ts: KanbanService, private dialog: MatDialog) {}
+  constructor(
+    private ts: KanbanService,
+    private auth: AuthService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
+    this.auth.isAdmin$.subscribe((res) => {
+      this.userisAdmin = res;
+    });
     this.ts.loadTask();
     this.ts.tasks.subscribe((res) => {
-      console.log('Tasks', res);
       this.allTasks = res;
       if (this.allTasks !== null) {
-        console.log(this.allTasks);
         this.clearArr();
         this.sortTasks();
       } else {

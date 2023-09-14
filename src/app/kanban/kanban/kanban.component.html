@@ -63,7 +63,7 @@
       </div>
     </div>
   </div>
-  <button (click)="openDialog(false)" class="new_note" mat-fab matTooltip="Primary" color="primary">
+  <button *ngIf="userisAdmin" (click)="openDialog(false)" class="new_note" mat-fab matTooltip="Primary" color="primary">
     <mat-icon>add</mat-icon>
   </button>
 </main>
